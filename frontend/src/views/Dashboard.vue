@@ -38,6 +38,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '../stores/auth.js'
+import { API_BASE } from '../config.js'
 import ReminderCard from '../components/ReminderCard.vue'
 
 const authStore = useAuthStore()
@@ -47,7 +48,7 @@ const loading = ref(true)
 async function fetchReminders() {
   loading.value = true
   try {
-    const res = await fetch('/api/reminders', {
+    const res = await fetch(`${API_BASE}/reminders`, {
       headers: authStore.getAuthHeaders()
     })
     if (res.ok) {
@@ -61,7 +62,7 @@ async function fetchReminders() {
 async function handleDelete(id) {
   if (!confirm('Delete this reminder?')) return
 
-  const res = await fetch(`/api/reminders/${id}`, {
+  const res = await fetch(`${API_BASE}/reminders/${id}`, {
     method: 'DELETE',
     headers: authStore.getAuthHeaders()
   })

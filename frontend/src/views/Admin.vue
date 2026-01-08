@@ -68,6 +68,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '../stores/auth.js'
+import { API_BASE } from '../config.js'
 
 const authStore = useAuthStore()
 const tab = ref('pending')
@@ -79,7 +80,7 @@ const pendingUsers = computed(() => allUsers.value.filter(u => !u.is_approved))
 async function fetchUsers() {
   loading.value = true
   try {
-    const res = await fetch('/api/admin/users', {
+    const res = await fetch(`${API_BASE}/admin/users`, {
       headers: authStore.getAuthHeaders()
     })
     if (res.ok) {
@@ -91,7 +92,7 @@ async function fetchUsers() {
 }
 
 async function approveUser(userId) {
-  const res = await fetch(`/api/admin/users/${userId}/approve`, {
+  const res = await fetch(`${API_BASE}/admin/users/${userId}/approve`, {
     method: 'POST',
     headers: authStore.getAuthHeaders()
   })
@@ -105,7 +106,7 @@ async function approveUser(userId) {
 async function rejectUser(userId) {
   if (!confirm('Reject and delete this user?')) return
 
-  const res = await fetch(`/api/admin/users/${userId}/reject`, {
+  const res = await fetch(`${API_BASE}/admin/users/${userId}/reject`, {
     method: 'POST',
     headers: authStore.getAuthHeaders()
   })
@@ -117,7 +118,7 @@ async function rejectUser(userId) {
 async function makeAdmin(userId) {
   if (!confirm('Make this user an admin?')) return
 
-  const res = await fetch(`/api/admin/users/${userId}/make-admin`, {
+  const res = await fetch(`${API_BASE}/admin/users/${userId}/make-admin`, {
     method: 'POST',
     headers: authStore.getAuthHeaders()
   })

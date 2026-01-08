@@ -14,6 +14,10 @@ class Settings(BaseSettings):
 
     otp_expiration_minutes: int = 5
 
+    # Railway deployment settings
+    port: int = 8000
+    cors_origins: str = "http://localhost:5173,http://localhost:3000"
+
     class Config:
         env_file = ".env"
 

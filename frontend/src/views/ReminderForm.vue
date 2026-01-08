@@ -89,6 +89,7 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth.js'
+import { API_BASE } from '../config.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -127,7 +128,7 @@ const form = reactive({
 async function fetchReminder() {
   if (!isEdit.value) return
 
-  const res = await fetch(`/api/reminders/${route.params.id}`, {
+  const res = await fetch(`${API_BASE}/reminders/${route.params.id}`, {
     headers: authStore.getAuthHeaders()
   })
 
@@ -170,8 +171,8 @@ async function handleSubmit() {
 
   try {
     const url = isEdit.value
-      ? `/api/reminders/${route.params.id}`
-      : '/api/reminders'
+      ? `${API_BASE}/reminders/${route.params.id}`
+      : `${API_BASE}/reminders`
 
     const res = await fetch(url, {
       method: isEdit.value ? 'PUT' : 'POST',

@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve dist -s -l $PORT"
   },
   "dependencies": {
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "serve": "^14.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
